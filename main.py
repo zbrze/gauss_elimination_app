@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import (QWidget, QVBoxLayout)
+from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPlainTextEdit)
 import sys
 from PyQt5.QtWidgets import QMainWindow, QTextEdit, QAction, QApplication, QLabel
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -14,57 +14,22 @@ class Matrix_window(QWidget):
 
         self.resize(410+ 10*cols, 380+10*rows)
 
-    def initUI(self, rows, cols):
+    def initUI(self, rows, cols, plain=None):
         self.verticalLayoutWidget = QtWidgets.QWidget(self)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 391, 361))
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout = QtWidgets.QGridLayout()
-        """  
-        for i in rows:
-            for j in cols:
-                #generujemy okienka
-
+        for i in range (0,rows):
+            for j in  range (0,cols):
+                plain = QPlainTextEdit(self.verticalLayoutWidget)
+                self.gridLayout.addWidget(plain, i, j)
+                plain.setObjectName("plain"+ str(i) + str(j))
+                print(plain.objectName())
         
-        self.plainTextEdit_8 = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
-        self.plainTextEdit_8.setObjectName("plainTextEdit_8")
-        self.gridLayout.addWidget(self.plainTextEdit_8, 2, 1, 1, 1)
-        self.plainTextEdit_5 = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
-        self.plainTextEdit_5.setObjectName("plainTextEdit_5")
-        self.gridLayout.addWidget(self.plainTextEdit_5, 1, 1, 1, 1)
-        self.plainTextEdit = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
-        self.plainTextEdit.setObjectName("plainTextEdit")
-        self.gridLayout.addWidget(self.plainTextEdit, 0, 2, 1, 1)
-        self.plainTextEdit_6 = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
-        self.plainTextEdit_6.setObjectName("plainTextEdit_6")
-        self.gridLayout.addWidget(self.plainTextEdit_6, 1, 2, 1, 1)
-        self.plainTextEdit_2 = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
-        self.plainTextEdit_2.setObjectName("plainTextEdit_2")
-        self.gridLayout.addWidget(self.plainTextEdit_2, 0, 1, 1, 1)
-        self.plainTextEdit_7 = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
-        self.plainTextEdit_7.setObjectName("plainTextEdit_7")
-        self.gridLayout.addWidget(self.plainTextEdit_7, 2, 0, 1, 1)
-        self.plainTextEdit_10 = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
-        self.plainTextEdit_10.setObjectName("plainTextEdit_10")
-        self.gridLayout.addWidget(self.plainTextEdit_10, 0, 3, 1, 1)
-        self.plainTextEdit_9 = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
-        self.plainTextEdit_9.setObjectName("plainTextEdit_9")
-        self.gridLayout.addWidget(self.plainTextEdit_9, 2, 2, 1, 1)
-        self.plainTextEdit_3 = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
-        self.plainTextEdit_3.setObjectName("plainTextEdit_3")
-        self.gridLayout.addWidget(self.plainTextEdit_3, 0, 0, 1, 1)
-        self.plainTextEdit_4 = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
-        self.plainTextEdit_4.setObjectName("plainTextEdit_4")
-        self.gridLayout.addWidget(self.plainTextEdit_4, 1, 0, 1, 1)
-        self.plainTextEdit_12 = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
-        self.plainTextEdit_12.setObjectName("plainTextEdit_12")
-        self.gridLayout.addWidget(self.plainTextEdit_12, 2, 3, 1, 1)
-        self.plainTextEdit_11 = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
-        self.plainTextEdit_11.setObjectName("plainTextEdit_11")
-        self.gridLayout.addWidget(self.plainTextEdit_11, 1, 3, 1, 1)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem, 3, 1, 1, 2)
-        """
+
         self.submit_btn = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.submit_btn.setText("Submit")
         self.gridLayout.addWidget(self.submit_btn, 4, 1, 1, 2)
