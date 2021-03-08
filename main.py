@@ -20,9 +20,10 @@ class Matrix_window(QWidget):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout = QtWidgets.QGridLayout()
-        for i in range (0,rows):
-            for j in  range (0,cols):
+        for i in range (0,cols):
+            for j in  range (0,rows):
                 plain = QPlainTextEdit(self.verticalLayoutWidget)
+                plain.resize(20, 20)
                 self.gridLayout.addWidget(plain, i, j)
                 plain.setObjectName("plain"+ str(i) + str(j))
                 print(plain.objectName())
@@ -32,10 +33,10 @@ class Matrix_window(QWidget):
 
         self.submit_btn = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.submit_btn.setText("Submit")
-        self.gridLayout.addWidget(self.submit_btn, 4, 1, 1, 2)
+        self.gridLayout.addWidget(self.submit_btn,rows + 1, 0, 1, rows)
         self.randomize_btn = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.randomize_btn.setText("Randomize")
-        self.gridLayout.addWidget(self.randomize_btn, 6, 1, 1, 2)
+        self.gridLayout.addWidget(self.randomize_btn, rows + 2, 0, 1, rows)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem1, 5, 1, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
