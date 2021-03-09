@@ -61,12 +61,14 @@ class Matrix_window(QWidget):
         self.submit_btn = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.submit_btn.setText("Submit")
         self.gridLayout.addWidget(self.submit_btn,rows + 1, 0, 1, rows)
-
+        self.arr = []
         self.submit_btn.mousePressEvent = lambda event: self.getValues()
 
         self.randomize_btn = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.randomize_btn.setText("Randomize")
         self.gridLayout.addWidget(self.randomize_btn, rows + 2, 0, 1, rows)
+        self.randomize_btn.mousePressEvent = lambda event: self.randomize()
+
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem1, 5, 1, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
@@ -77,9 +79,16 @@ class Matrix_window(QWidget):
             for j in  range (0, self.rows):
                 text = self.findChild(QtWidgets.QPlainTextEdit, "plain"+ str(i) + str(j))
                 matrix[i][j] = float(text.toPlainText())
+        self.arr = np.copy(matrix)
+        print(self.arr)
 
+    def randomize(self):
+        matrix = np.random.rand(self.cols, self.rows) + np.random.randint(100, size=(self.cols, self.rows))
+        for i in range(0, self.cols):
+            for j in range(0, self.rows):
+                text = self.findChild(QtWidgets.QPlainTextEdit, "plain" + str(i) + str(j))
+                text.setPlainText(str(matrix[i,j]))
 
-        print(Gauss_pivoting(matrix))
 
 
 
