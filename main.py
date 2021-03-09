@@ -2,6 +2,8 @@ from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPlainTextEdit)
 import sys
 from PyQt5.QtWidgets import QMainWindow, QTextEdit, QAction, QApplication, QLabel
 from PyQt5 import QtCore, QtGui, QtWidgets
+import numpy as np
+from numpy import append
 
 class Matrix_window(QWidget):
     def __init__(self, cols, rows):
@@ -11,6 +13,8 @@ class Matrix_window(QWidget):
         self.label = QLabel("Matrix")
         layout.addWidget(self.label)
         self.initUI(rows, cols)
+        self.cols = cols;
+        self.rows = rows;
 
         self.resize(410+ 10*cols, 380+10*rows)
 
@@ -34,6 +38,9 @@ class Matrix_window(QWidget):
         self.submit_btn = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.submit_btn.setText("Submit")
         self.gridLayout.addWidget(self.submit_btn,rows + 1, 0, 1, rows)
+
+        self.submit_btn.mousePressEvent = lambda event: self.getValues()
+
         self.randomize_btn = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.randomize_btn.setText("Randomize")
         self.gridLayout.addWidget(self.randomize_btn, rows + 2, 0, 1, rows)
@@ -41,11 +48,22 @@ class Matrix_window(QWidget):
         self.gridLayout.addItem(spacerItem1, 5, 1, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
 
+    def getValues(self):
+        matrix = np.zeros([self.cols, self.rows])
+        for i in range (0,self.cols):
+            for j in  range (0, self.rows):
+                text = self.findChild(QtWidgets.QPlainTextEdit, "plain"+ str(i) + str(j))
+                matrix[i][j] = float(text.toPlainText())
+
+
+        print(matrix)
+
+
 
 class Main_Window(QWidget):
     def __init__(self):
         super().__init__()
-        self.title = 'Hello, world!'
+        self.title = 'Gauss elimination'
         self.resize(410, 310)
 
         self.initUI()
