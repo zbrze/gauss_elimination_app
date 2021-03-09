@@ -5,6 +5,29 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import numpy as np
 from numpy import append
 
+
+def Gauss_pivoting(matrixA):
+    n = len(matrixA)
+    for i in range(n):
+
+        # partial pivoting
+        max_row = i  # find row with the greatest number in column i
+        counter = 1
+        while i + counter < n:
+            if abs(matrixA[i + counter, i]) > abs(matrixA[i, i]):
+                max_row = i + counter
+            counter += 1
+
+        if i != max_row:  # swap rows if max_row is different than i
+            matrixA[max_row], matrixA[i] = matrixA[i], matrixA[max_row].copy()
+        for j in range(i + 1, n):
+            quotient = float(matrixA[j][i]) / matrixA[i][i]
+            for k in range(i, n):
+                matrixA[j][k] -= float(matrixA[i][k]) * quotient
+            matrixA[j][i] = 0
+        return matrixA
+
+
 class Matrix_window(QWidget):
     def __init__(self, cols, rows):
         super().__init__()
@@ -56,7 +79,8 @@ class Matrix_window(QWidget):
                 matrix[i][j] = float(text.toPlainText())
 
 
-        print(matrix)
+        print(Gauss_pivoting(matrix))
+
 
 
 
@@ -116,7 +140,6 @@ class Main_Window(QWidget):
         if cols != 0 and rows != 0:
             self.w = Matrix_window(cols, rows)
             self.w.show()
-
 
 
 
